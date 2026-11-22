@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>灵感配方 Social Mood</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="page">
+    <!-- 顶部标题 -->
+    <header class="hero">
+      <p class="hero-badge">AI 驱动 · Agnes 3.0 Flash</p>
+      <h1 class="hero-title">灵感配方</h1>
+      <p class="hero-sub">Social Mood · 一张照片，配好文案与背景音乐</p>
+    </header>
+
+    <main class="layout">
+      <!-- 左侧：上传与选项 -->
+      <section class="card panel">
+        <div class="card-head">
+          <h2 class="card-title">1 · 上传照片</h2>
+          <span class="card-hint">支持 JPG / PNG，仅本地预览</span>
+        </div>
+
+        <label class="dropzone" id="dropzone" for="photoInput">
+          <input id="photoInput" type="file" accept="image/*" hidden />
+          <div class="dropzone-inner" id="dropzoneInner">
+            <span class="dropzone-icon">＋</span>
+            <p class="dropzone-text">点击选择一张生活照片</p>
+            <p class="dropzone-tip">或把图片拖到这里</p>
+          </div>
+          <div class="preview-wrap" id="previewWrap" hidden>
+            <img id="previewImg" class="preview-img" alt="照片预览" />
+            <button type="button" class="preview-remove" id="removePhoto">重新选择</button>
+          </div>
+        </label>
+
+        <div class="card-head spaced">
+          <h2 class="card-title">2 · 选择平台</h2>
+        </div>
+        <div class="chips" id="platformGroup" role="radiogroup" aria-label="选择平台">
+          <button type="button" class="chip is-active" data-value="朋友圈" role="radio" aria-checked="true">朋友圈</button>
+          <button type="button" class="chip" data-value="小红书" role="radio" aria-checked="false">小红书</button>
+          <button type="button" class="chip" data-value="抖音" role="radio" aria-checked="false">抖音</button>
+        </div>
+
+        <div class="card-head spaced">
+          <h2 class="card-title">3 · 文案风格</h2>
+        </div>
+        <div class="chips" id="styleGroup" role="radiogroup" aria-label="选择文案风格">
+          <button type="button" class="chip is-active" data-value="高级感" role="radio" aria-checked="true">高级感</button>
+          <button type="button" class="chip" data-value="松弛感" role="radio" aria-checked="false">松弛感</button>
+          <button type="button" class="chip" data-value="幽默" role="radio" aria-checked="false">幽默</button>
+          <button type="button" class="chip" data-value="简约" role="radio" aria-checked="false">简约</button>
+          <button type="button" class="chip" data-value="朋友圈日常" role="radio" aria-checked="false">朋友圈日常</button>
+        </div>
+
+        <button type="button" class="btn-primary" id="generateBtn">生成灵感</button>
+        <p class="panel-note" id="statusText">提示：上传照片、选好平台与风格，点击生成即可。</p>
+      </section>
+
+      <!-- 右侧：结果 -->
+      <section class="card results" id="resultsCard">
+        <div class="card-head">
+          <h2 class="card-title">灵感结果</h2>
+          <span class="demo-tag" id="demoTag">演示数据 DEMO DATA</span>
+        </div>
+
+        <!-- 空状态 -->
+        <div class="empty" id="emptyState">
+          <div class="empty-art">✦</div>
+          <p class="empty-title">还没有配方</p>
+          <p class="empty-text">上传照片、选好平台与风格，点击「生成灵感」，这里会出现 3 条文案和 3 首 BGM 推荐。</p>
+        </div>
+
+        <!-- 生成中 -->
+        <div class="loading" id="loadingState" hidden>
+          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+          <p>正在调配你的灵感…</p>
+        </div>
+
+        <!-- 结果内容 -->
+        <div class="results-body" id="resultsBody" hidden>
+          <div class="result-block">
+            <div class="block-head">
+              <h3 class="block-title">文案</h3>
+              <span class="block-meta" id="copyMeta"></span>
+            </div>
+            <ul class="copy-list" id="copyList"></ul>
+          </div>
+
+          <div class="result-block">
+            <div class="block-head">
+              <h3 class="block-title">BGM 推荐</h3>
+              <span class="block-meta">歌名 · 歌手 · 推荐理由</span>
+            </div>
+            <ul class="bgm-list" id="bgmList"></ul>
+          </div>
+
+          <div class="results-actions">
+            <button type="button" class="btn-ghost" id="regenerateBtn">重新生成</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>灵感配方 Social Mood · 结果由 Agnes 3.0 Flash 生成；接口不可用时会自动退回演示数据并标注。</p>
+    </footer>
+  </div>
+
+  <div class="toast" id="toast" hidden></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
