@@ -342,4 +342,4 @@ if __name__ == "__main__":
         print("模式：真实模型（%s @ %s）" % (AGNES_MODEL, AGNES_BASE_URL))
     else:
         print("模式：演示数据（未检测到 AGNES_API_KEY，请检查 .env）")
-    app.run(host="127.0.0.1", port=port, debug=debug)
+    app.run(host="0.0.0.0", port=port, debug=False)
