@@ -322,7 +322,34 @@ function renderResults(data) {
     reason.className = 'bgm-reason';
     reason.textContent = item.reason;
 
-    body.append(title, artist, reason);
+    // 试听入口：搜索关键词由当前歌曲的「歌曲名 + 歌手名」动态生成并编码
+    const keyword = encodeURIComponent(`${item.title} ${item.artist}`.trim());
+
+    const listenStyle =
+      'display:inline-block;font-size:12px;line-height:1;padding:6px 12px;'
+      + 'border-radius:999px;text-decoration:none;color:#6F8570;'
+      + 'background:#E4EBE1;border:1px solid #8CA08A;';
+
+    const links = document.createElement('div');
+    links.style.cssText = 'display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;';
+
+    const netease = document.createElement('a');
+    netease.href = `https://music.163.com/#/search/m/?s=${keyword}&type=1`;
+    netease.target = '_blank';
+    netease.rel = 'noopener noreferrer';
+    netease.textContent = '网易云音乐试听';
+    netease.style.cssText = listenStyle;
+
+    const qq = document.createElement('a');
+    qq.href = `https://y.qq.com/n/ryqq/search?w=${keyword}`;
+    qq.target = '_blank';
+    qq.rel = 'noopener noreferrer';
+    qq.textContent = 'QQ音乐试听';
+    qq.style.cssText = listenStyle;
+
+    links.append(netease, qq);
+
+    body.append(title, artist, reason, links);
     li.append(idx, body);
     el.bgmList.appendChild(li);
   });
